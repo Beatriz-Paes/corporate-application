@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import home
+from .views import ColaboradoresList
 
 urlpatterns = [
-    path('', home),
+    path('', ColaboradoresList.as_view(), name='list_colaboradores'),
 
 ]

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    List
+<br>
+    {% for colaborador in object_list %}
+        {{ colaborador }} <br>
+    {% endfor %}
+{% endblock %}
