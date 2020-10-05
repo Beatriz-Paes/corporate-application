@@ -5,6 +5,8 @@
     List
 <br>
     {% for colaborador in object_list %}
-        {{ colaborador }} <br>
+        <a href="{% url 'update_colaborador' colaborador.id %}">
+            {{ colaborador }}
+        </a> <br>
     {% endfor %}
 {% endblock %}
