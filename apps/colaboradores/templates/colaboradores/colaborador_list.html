@@ -8,9 +8,11 @@
         <a href="{% url 'update_colaborador' colaborador.id %}">
             {{ colaborador }}
         </a>
-        <a href="{% url 'delete_colaborador' colaborador.id %}">
+        <a href="{% url 'delete_colaborador' colaborador.id %}" class="btn btn-btn">
             Deletar
         </a>
         <br>
     {% endfor %}
+
+<a href="{% url 'create_colaborador' %}" class="btn btn-info">Novo Colaborador</a>
 {% endblock %}
