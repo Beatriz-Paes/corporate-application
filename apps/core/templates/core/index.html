@@ -7,7 +7,8 @@
     </div>
     <div class="col-sm">
         Olá {{ usuario.colaborador.nome }}
-        <a href="{% url 'list_colaboradores' %}">Gerenciar colaboradores</a>
+        <p><a href="{% url 'list_colaboradores' %}">Gerenciar colaboradores</a></p>
+        <p><a href="{% url 'list_departamentos' %}">Gerenciar departamentos</a></p>
     </div>
     <div class="col-sm">
         <a href="{% url 'logout' %}">Logout</a>
