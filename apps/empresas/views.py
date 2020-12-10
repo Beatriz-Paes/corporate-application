@@ -15,6 +15,6 @@ class EmpresaCreate(CreateView):
         return HttpResponse('ok')
 
 
-class  EmpresaEdit(UpdateView):
+class EmpresaEdit(UpdateView):
     model = Empresa
     fields = ['nome']

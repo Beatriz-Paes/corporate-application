@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
 
-# Create your views here.
+from .models import Documento
+from django.views.generic import CreateView, DeleteView
+
+
+class DocumentoCreate(CreateView):
+    model = Documento
+    fields = ['descricao', 'arquivo']
+
+
+class DocumentoDelete(DeleteView):
+    model = Documento
+    success_url = reverse_lazy('list_documents')
