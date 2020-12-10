@@ -4,12 +4,11 @@
 
 {% block main %}
 
-<form method="POST">
+{{ forms.errors }}
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-
     {{ form|bootstrap}}
     <button type="submit" class="btn btn-info">Adicionar</button>
-
 </form>
 
 {% endblock %}
