@@ -2,11 +2,9 @@
 
 {% block main %}
 <div class="row">
+
     <div class="col-sm">
-        One of three columns
-    </div>
-    <div class="col-sm">
-        Olá {{ usuario.colaborador.nome }}
+        <h4>Olá {{ usuario.colaborador.nome }}<br></h4>
         <p><a href="{% url 'list_colaboradores' %}">Gerenciar colaboradores</a></p>
         <p><a href="{% url 'list_departamentos' %}">Gerenciar departamentos</a></p>
         <p><a href="{% url 'list_hora_extra' %}">Gerenciar Banco de Horas</a></p>
