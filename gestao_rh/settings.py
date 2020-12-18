@@ -8,6 +8,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # DEBUG = True
 
 ALLOWED_HOSTS = ['18.217.224.82']
+# ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
