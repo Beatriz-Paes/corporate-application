@@ -36,10 +36,12 @@
 {% for registro_hora in object.registrohoraextra_set.all %}
 
     <li>
-    {{ registro_hora.motivo }} | {{ registro_hora.horas }}
+    {{ registro_hora.motivo }} | {{ registro_hora.horas }}h
     </li>
 
 {% endfor %}
 </ul>
+
+<h3>Total de horas extras: {{ object.total_horas_extra }}h</h3>
 
 {% endblock %}
