@@ -1,4 +1,8 @@
+import json
+
+from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from apps.registro_hora_extra.models import RegistroHoraExtra
@@ -50,3 +54,33 @@ class HoraExtraEditBase(UpdateView):
 class HoraExtraDelete(DeleteView):
     model = RegistroHoraExtra
     success_url = reverse_lazy('list_hora_extra')
+
+
+class UtilizouHoraExtra(View):
+    def post(self, *args, **kwargs):
+
+        registro_hora_extra = RegistroHoraExtra.objects.get(id=kwargs['pk'])
+        registro_hora_extra.utilizada = True
+        registro_hora_extra.save()
+
+        colaborador = self.request.user.colaborador
+
+        response = json.dumps({'mensagem': 'Requisição Executada.',
+                               'horas': float(colaborador.total_horas_extra)})
+
+        return HttpResponse(response, content_type='application/json')
+
+
+class NaoUtilizouHoraExtra(View):
+    def post(self, *args, **kwargs):
+
+        registro_hora_extra = RegistroHoraExtra.objects.get(id=kwargs['pk'])
+        registro_hora_extra.utilizada = False
+        registro_hora_extra.save()
+
+        colaborador = self.request.user.colaborador
+
+        response = json.dumps({'mensagem': 'Requisição Executada.',
+                               'horas': float(colaborador.total_horas_extra)})
+
+        return HttpResponse(response, content_type='application/json')

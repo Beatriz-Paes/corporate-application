@@ -7,8 +7,10 @@ SECRET_KEY = 'qkai@zi3%&g(17x9zl81ewldm!tw3o0jb=98(v2%1me#e#d0wm'
 DEBUG = config('DEBUG', default=False, cast=bool)
 # DEBUG = True
 
-ALLOWED_HOSTS = ['18.217.224.82']
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '18.217.224.82',
+    '127.0.0.1',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -90,22 +92,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticfiles"),
+]
 
-# MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-if DEBUG:
-        STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, 'static')
-       ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# if DEBUG:
+#         STATICFILES_DIRS = [
+#             os.path.join(BASE_DIR, 'staticfiles'),
+#        ]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = 'home'
 
