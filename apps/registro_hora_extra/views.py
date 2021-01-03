@@ -1,3 +1,4 @@
+import csv
 import json
 
 from django.http import HttpResponse
@@ -58,7 +59,6 @@ class HoraExtraDelete(DeleteView):
 
 class UtilizouHoraExtra(View):
     def post(self, *args, **kwargs):
-
         registro_hora_extra = RegistroHoraExtra.objects.get(id=kwargs['pk'])
         registro_hora_extra.utilizada = True
         registro_hora_extra.save()
@@ -73,7 +73,6 @@ class UtilizouHoraExtra(View):
 
 class NaoUtilizouHoraExtra(View):
     def post(self, *args, **kwargs):
-
         registro_hora_extra = RegistroHoraExtra.objects.get(id=kwargs['pk'])
         registro_hora_extra.utilizada = False
         registro_hora_extra.save()
@@ -84,3 +83,19 @@ class NaoUtilizouHoraExtra(View):
                                'horas': float(colaborador.total_horas_extra)})
 
         return HttpResponse(response, content_type='application/json')
+
+
+class ExportarParaCsv(View):
+    def get(self, request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+        registro_hora_extra = RegistroHoraExtra.objects.filter(utilizada=False)
+
+        writer = csv.writer(response)
+        writer.writerow(['Id', 'Nome', 'Motivo', 'Horas'])
+
+        for registro in registro_hora_extra:
+            writer.writerow([registro.id, registro.colaborador, registro.motivo, registro.horas])
+
+        return response
