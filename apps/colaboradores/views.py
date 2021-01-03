@@ -1,11 +1,15 @@
 import io
 from django.http import FileResponse, HttpResponse
+from django.views import View
 from reportlab.pdfgen import canvas
 
 from django.contrib.auth.models import User
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from .models import Colaborador
 from django.urls import reverse_lazy
+
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
 
 
 class ColaboradoresList(ListView):
@@ -68,3 +72,32 @@ def relatorio_colaboradores(request):
     response.write(pdf)
 
     return response
+
+
+class Render:
+
+    @staticmethod
+    def render(path: str, params: dict, filename: str):
+        template = get_template(path)
+        html = template.render(params)
+        response = io.BytesIO()
+        pdf = pisa.pisaDocument(io.BytesIO(html.encode("UTF-8")), response)
+
+        if not pdf.err:
+            response = HttpResponse(response.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+            return response
+
+        else:
+            return HttpResponse("Error Rendering PDF", status=400)
+
+
+class Pdf(View):
+
+    def get(self, request):
+        params = {
+            'today': 'Variavel today',
+            'sales': 'Variavel sales',
+            'request': request,
+        }
+        return Render.render('colaboradores/relatorio.html', params, 'myfile')
