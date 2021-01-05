@@ -4,3 +4,4 @@ venv
 .idea/
 .env
 gestao_rh.pem
+static
