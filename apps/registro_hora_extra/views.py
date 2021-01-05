@@ -9,6 +9,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from apps.registro_hora_extra.models import RegistroHoraExtra
 from .forms import RegistroHoraExtraForm
 
+import xlwt
+
 
 class HoraExtraList(ListView):
     model = RegistroHoraExtra
@@ -98,4 +100,38 @@ class ExportarParaCsv(View):
         for registro in registro_hora_extra:
             writer.writerow([registro.id, registro.colaborador, registro.motivo, registro.horas])
 
+        return response
+
+
+class ExportarExcel(View):
+    def get(self, request):
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Banco de Horas')
+
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        collumns = ['Id', 'Colaborador', 'Motivo', 'Horas']
+
+        for col_num in range(len(collumns)):
+            ws.write(row_num, col_num, collumns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        registros = RegistroHoraExtra.objects.filter(utilizada=False)
+
+        row_num = 1
+        for registro in registros:
+            ws.write(row_num, 0, registro.id, font_style)
+            ws.write(row_num, 1, registro.colaborador.nome, font_style)
+            ws.write(row_num, 2, registro.motivo, font_style)
+            ws.write(row_num, 3, registro.horas, font_style)
+            row_num += 1
+
+        wb.save(response)
         return response
