@@ -9,4 +9,4 @@ class ColaboradorViewSet(viewsets.ModelViewSet):
     """
     queryset = Colaborador.objects.all().order_by('nome')
     serializer_class = ColaboradorSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]

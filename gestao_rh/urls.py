@@ -5,13 +5,15 @@ from django.conf.urls.static import static
 
 from rest_framework import routers
 from apps.core import views
-from apps.colaboradores.api import views as views_colaborador
+from apps.colaboradores.api.views import ColaboradorViewSet
+from apps.registro_hora_extra.api.views import RegistroHoraExtraViewSet
 
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'api/colaboradores', views_colaborador.ColaboradorViewSet)
+router.register(r'api/colaboradores', ColaboradorViewSet)
+router.register(r'api/banco-horas', RegistroHoraExtraViewSet)
 
 urlpatterns = [
     path('', include('apps.core.urls')),
