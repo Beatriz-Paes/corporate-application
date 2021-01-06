@@ -5,10 +5,13 @@ from django.conf.urls.static import static
 
 from rest_framework import routers
 from apps.core import views
+from apps.colaboradores.api import views as views_colaborador
+
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'api/colaboradores', views_colaborador.ColaboradorViewSet)
 
 urlpatterns = [
     path('', include('apps.core.urls')),

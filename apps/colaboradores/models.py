@@ -12,10 +12,11 @@ class Colaborador(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     departamentos = models.ManyToManyField(Departamento)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, null=True, blank=True)
+    imagem = models.ImageField()
 
     def get_absolute_url(self):
         return reverse('list_colaboradores')
-    
+
     @property
     def total_horas_extra(self):
         total = self.registrohoraextra_set.filter(utilizada=False).aggregate(Sum('horas'))['horas__sum']
