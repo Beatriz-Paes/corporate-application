@@ -10,6 +10,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = [
     '18.217.224.82',
     '127.0.0.1',
+    '0.0.0.0'
 ]
 
 INSTALLED_APPS = [
@@ -27,7 +28,8 @@ INSTALLED_APPS = [
     'apps.core',
     'bootstrapform',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

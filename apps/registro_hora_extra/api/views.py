@@ -12,4 +12,4 @@ class RegistroHoraExtraViewSet(viewsets.ModelViewSet):
     queryset = RegistroHoraExtra.objects.all().order_by('colaborador')
     serializer_class = RegistroHoraExtraSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]

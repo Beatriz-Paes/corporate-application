@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -7,6 +8,18 @@ from rest_framework import routers
 from apps.core import views
 from apps.colaboradores.api.views import ColaboradorViewSet
 from apps.registro_hora_extra.api.views import RegistroHoraExtraViewSet
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Colaboradores API',
+        default_version='v1',
+        description="Retorna todos os colaboradores"
+    ),
+    public=True,
+)
 
 
 router = routers.DefaultRouter()
@@ -24,6 +37,8 @@ urlpatterns = [
     path('horas-extras/', include('apps.registro_hora_extra.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+
+    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 
     path(r'', include(router.urls)),
